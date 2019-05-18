@@ -3,6 +3,7 @@ package com.belatrix.logger.app;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
@@ -108,10 +109,9 @@ public class JobLogger {
 					+ ":" + dbParams.get("portNumber") + "/", connectionProps);
 			stmt = connection.createStatement();	
 			// line for junit test
-			stmt.execute("create table IF NOT EXISTS LOG_VALUES (tipo INTEGER, mensaje varchar(60));");
-			stmt.executeUpdate("insert into LOG_VALUES values(" + t + ", '" + l + "')");
+			stmt.execute("create table IF NOT EXISTS LOG_VALUES (mensaje varchar(60), tipo INTEGER);");
+			stmt.executeUpdate("insert into Log_Values values('" + l + "', " + String.valueOf(t) + ")");
 			isStored = true;
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
